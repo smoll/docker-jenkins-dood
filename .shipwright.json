@@ -4,6 +4,7 @@
 
   "namespace": "smoll",
   "names": {
-    "/": "smoll/jenkins-dood"
+    "/": "smoll/jenkins-dood",
+    "/slave": "smoll/jnlp-slave-dood"
   }
 }

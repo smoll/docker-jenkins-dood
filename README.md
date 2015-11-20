@@ -56,6 +56,6 @@ I'm using `.shipwright.json` to organize shipping Docker images to the Docker Hu
 
 * `smoll/jenkins-dood:master` - uses `FROM smoll/jenkins:master` as its base image. It's expected for the host's Docker executable and daemon socket to be mounted when this container is run.
 
-* `docker-compose.yml` - Sample Docker Compose YML suitable for spinning up a local Jenkins box. Because `smoll/jenkins-dood:master` labels the Jenkins master with the "docker" label, it is treated as a generic Docker host, and will spin up sibling containers.
+* `example-local.yml` - Sample Docker Compose YML suitable for spinning up a local Jenkins box. Because `smoll/jenkins-dood:master` labels the Jenkins master with the "docker" label, it is treated as a generic Docker host, and will spin up sibling containers.
 
-* `productionized.yml` - Sample Docker Compose YML suitable for spinning up a "Productionized" Jenkins box, for shared use by a Development team. You still need to manually connect a few beefy but generic cloud slaves to it, so that it can run scripts that specify `node('docker') { sh 'echo etc' }`. This master is *NOT* labeled with the "docker" label.
+* `example-org.yml` - Sample Docker Compose YML suitable for spinning up a "Productionized" Jenkins box, for shared use by a Development team. You still need to manually connect a few beefy but generic cloud slaves to it, so that it can run scripts that specify `node('docker') { sh 'echo etc' }`. This master is *NOT* labeled with the "docker" label.

@@ -1,5 +1,7 @@
+# Used for local development of these Dockerfiles
+
 dood:
-  image: smoll/jenkins-dood:master
+  build: dood
   volumes:
    - /usr/local/bin/docker:/bin/docker.io
    - /var/run/docker.sock:/var/run/docker.sock

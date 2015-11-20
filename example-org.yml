@@ -1,0 +1,7 @@
+# Example docker-compose.yml for org-wide Jenkins master
+# Still need to manually connect generic Docker-host cloud slaves to this!
+
+master:
+  image: smoll/jenkins:master
+  ports:
+   - "8080:8080"

@@ -1,0 +1,20 @@
+# Example local docker-compose.yml
+#
+# If we specify a Workflow job with:
+#
+# node('docker') {
+#     docker.build('alpine:latest').inside {
+#         apk --update add mysql-client && mysql -version
+#     }
+# }
+#
+# it should run inside of a sibling container!
+
+local:
+  image: smoll/jenkins-dood:master
+  volumes:
+   - /usr/local/bin/docker:/bin/docker.io
+   - /var/run/docker.sock:/var/run/docker.sock
+   - /var/jenkins_home:/var/jenkins_home
+  ports:
+   - "8080:8080"

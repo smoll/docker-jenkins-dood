@@ -46,12 +46,12 @@ This Docker container is highly based on the one explained at the [article by Ad
 ## How to use it
 ### If you wish to obtain the image, you just have to ...
 ```bash
-docker pull axltxl/jenkins-dood
+docker pull smoll/jenkins-dood
 ```
 
 ###However, if you wish to build it instead ...
 ```bash
-git clone https://github.com/axltxl/docker-jenkins-dood.git 
+git clone https://github.com/smoll/docker-jenkins-dood.git
 cd jenkins-dood
 docker build -t jenkins-dood .
 ```
@@ -62,7 +62,7 @@ shipwright && docker run -d -v $(which docker):/bin/docker.io \
               -v /var/run/docker.sock:/var/run/docker.sock \
               -v /var/jenkins_home:/var/jenkins_home \
               -p 8080:8080 \
-              smoll/jenkins-dood:dev
+              smoll/jenkins-dood:master
 ```
 
 ###Advantages

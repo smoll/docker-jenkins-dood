@@ -44,5 +44,8 @@ RUN mkdir -p /var/log/jenkins
 # Copy the supervisor.conf file into Docker
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+# Give "master" node the "docker" label, for use by Docker Workflow plugin
+COPY customize/label.groovy /usr/share/jenkins/ref/init.groovy.d/label.groovy
+
 # Start supervisord when running the container
 CMD /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf

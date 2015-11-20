@@ -1,12 +1,42 @@
 ![](http://i.imgur.com/KC6TAD3.png)
-Jenkins with DooD (Docker outside of Docker)
+[WIP] Jenkins with DooD (Docker outside of Docker), with CloudBees Docker Workflow
 ---
 A [Jenkins container](https://registry.hub.docker.com/_/jenkins/) capable of using [Docker](http://docker.com), so you can Docker while you Docker.
 
+* [Rationale](#rationale)
 * [How to use it](#how-to-use-it)
 * [Advantages](#advantages)
 * [Disadvantages](#disavantages)
 * [Copyright and Licensing](#copyright-and-licensing)
+
+## Rationale
+This was forked from [axltxl/docker-jenkins-dood](https://github.com/axltxl/docker-jenkins-dood) in order to make a few customizations so it more closely mirrors my desired "Productionized" Docker in CI setup, namely:
+* A "dumb" Jenkins master server, which has nothing but Jenkins on it
+* Jenkins slaves with Docker and only Docker installed
+* CloudBees Docker Workflow plugin installed on the master, which allows you to run stuff on a Jenkins slave Docker host with a simple DSL
+
+A good treatise on the plugin can be found [here](https://www.cloudbees.com/blog/orchestrating-workflows-jenkins-and-docker-0):
+
+> What if all this hassle just went away? Let us say the Jenkins administrators guaranteed one thing only:
+>
+> > If you ask to build on a slave with the label docker, then Docker will be installed.
+>
+> and proceeded to attach a few dozen beefy but totally plain-vanilla Linux cloud slaves. Finally with CloudBees Docker Workflow you can use these build servers as they come.
+> ```groovy
+// OK, here we come
+node('docker') {
+    // My project sources include both build.xml and a Dockerfile to run it in.
+    git 'https://git.mycorp.com/myproject.git'
+    // Ready?
+    docker.build('mycorp/ant-qwerty:latest').inside {
+        sh 'ant dist-package'
+    }
+    archive 'app.zip'
+}
+```
+> That is it.
+
+In this case, however, the master is *itself* the "slave with the label docker."
 
 ## First of all, WTF is *DooD* supposed to mean?
 Long story short, *DooD* (as in *dude*) is the opposite of *[DinD](https://blog.docker.com/2013/09/docker-can-now-run-within-docker/)* and whereas the latter includes a whole Docker installation inside of it, the former just uses its underlying host's Docker installation.
@@ -28,11 +58,11 @@ docker build -t jenkins-dood .
 
 ###Now, time to have fun with it...
 ```bash
-docker run -d -v $(which docker):/bin/docker.io \ 
+shipwright && docker run -d -v $(which docker):/bin/docker.io \
               -v /var/run/docker.sock:/var/run/docker.sock \
-              -v /path/to/your/jenkins/home:/var/jenkins_home \
+              -v /var/jenkins_home:/var/jenkins_home \
               -p 8080:8080 \
-              axltxl/jenkins-dood
+              smoll/jenkins-dood:dev
 ```
 
 ###Advantages

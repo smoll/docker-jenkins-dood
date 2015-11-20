@@ -28,11 +28,13 @@ docker build -t jenkins-dood .
 
 ###Now, time to have fun with it...
 ```bash
-docker run -d -v $(which docker):/bin/docker.io \ 
+mkdir -p /var/jenkins_home # TODO: replace with a data-only container
+
+shipwright && docker run -d -v $(which docker):/bin/docker.io \
               -v /var/run/docker.sock:/var/run/docker.sock \
-              -v /path/to/your/jenkins/home:/var/jenkins_home \
+              -v /var/jenkins_home:/var/jenkins_home \
               -p 8080:8080 \
-              axltxl/jenkins-dood
+              smoll/jenkins-dood:dev
 ```
 
 ###Advantages

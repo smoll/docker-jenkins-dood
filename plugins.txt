@@ -2,8 +2,6 @@ scm-api:latest
 git-client:latest
 git:latest
 greenballs:latest
-docker-workflow:latest
-workflow-aggregator:latest
 workflow-api:latest
 workflow-basic-steps:latest
 workflow-durable-task-step:latest
@@ -11,7 +9,8 @@ workflow-support:latest
 workflow-cps-global-lib:latest
 workflow-cps:latest
 workflow-job:latest
-workflow-multibranch:latest
 workflow-scm-step:latest
 workflow-step-api:latest
-docker-workflow:latest
+workflow-aggregator:1.11
+workflow-multibranch:1.11
+docker-workflow:1.2

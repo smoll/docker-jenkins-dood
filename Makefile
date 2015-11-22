@@ -1,17 +1,30 @@
+# Makefile for development of these Docker images
+
 build:
-	@docker-compose build
+	@shipwright
 
-run:
-	@docker-compose up -d
+local:	build
+	@docker run -d -v `which docker`:/bin/docker.io \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		-v /var/jenkins_home \
+		-p 50000:50000 \
+		-p 8080:8080 \
+		smoll/jenkins-dood:latest >> .makelog
 
-kill:
-	@docker-compose kill
+org:	build
+	@docker run -d \
+		-p 50001:50000 \
+		-p 8081:8080 \
+		smoll/jenkins:latest >> .makelog
 
-clean:	kill
-	@docker-compose rm jenkinsmaster
+push:
+	@shipwright push
 
-clean-data:	kill
-	@docker-compose rm -v jenkinsmaster
+purge:
+	@shipwright purge
 
-clean-images:
-	@docker rmi $(docker images -q --filter="dangling=true")
+clean:
+	@< .makelog xargs -I % sh -c 'docker kill %; docker rm -v %'
+	@rm -f .makelog
+
+.DEFAULT_GOAL := build

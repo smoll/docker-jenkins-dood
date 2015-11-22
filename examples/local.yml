@@ -3,7 +3,7 @@
 # If we specify a Workflow job with:
 #
 # node('docker') {
-#     docker.build('alpine:latest').inside {
+#     docker.image('alpine:latest').inside {
 #         apk --update add mysql-client && mysql -version
 #     }
 # }

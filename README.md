@@ -1,5 +1,5 @@
 ![](http://i.imgur.com/KC6TAD3.png)
-[WIP] Jenkins with DooD (Docker outside of Docker), with CloudBees Docker Workflow and Jenkins Job DSL
+[WIP] Jenkins with DooD (Docker outside of Docker), CloudBees Docker Workflow and Jenkins Job DSL
 ---
 A [Jenkins image](https://registry.hub.docker.com/_/jenkins/) capable of using [Docker](http://docker.com), so you can Docker while you Docker (`smoll/jenkins-dood`) for use locally, and a generic Dockerized Jenkins (`smoll/jenkins`) for use on a shared server, and connected to Docker cloud slaves.
 
@@ -56,6 +56,7 @@ I'm using `.shipwright.json` to organize shipping Docker images to the Docker Hu
 
 * `smoll/jenkins-dood:master` - uses `FROM smoll/jenkins:master` as its base image. It's expected for the host's Docker executable and daemon socket to be mounted when this container is run.
 
-* `example-local.yml` - Sample Docker Compose YML suitable for spinning up a local Jenkins box. Because `smoll/jenkins-dood:master` labels the Jenkins master with the "docker" label, it is treated as a generic Docker host, and will spin up sibling containers.
+### Example Docker Compose YMLs
+* `examples/local.yml` - Sample Docker Compose YML suitable for spinning up a local Jenkins box. Because `smoll/jenkins-dood:master` labels the Jenkins master with the "docker" label, it is treated as a generic Docker host, and will spin up sibling containers.
 
-* `example-org.yml` - Sample Docker Compose YML suitable for spinning up a "Productionized" Jenkins box, for shared use by a Development team. You still need to manually connect a few beefy but generic cloud slaves to it, so that it can run scripts that specify `node('docker') { sh 'echo etc' }`. This master is *NOT* labeled with the "docker" label.
+* `examples/org.yml` - Sample Docker Compose YML suitable for spinning up a "Productionized" Jenkins box, for shared use by a Development team. You still need to manually connect a few beefy but generic cloud slaves to it, so that it can run scripts that specify `node('docker') { sh 'echo etc' }`. This master is *NOT* labeled with the "docker" label.

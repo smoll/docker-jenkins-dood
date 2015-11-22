@@ -5,7 +5,9 @@ A [Jenkins image](https://registry.hub.docker.com/_/jenkins/) capable of using [
 
 * [Rationale](#rationale)
 * [What about secrets?](#what-about-secrets)
+* [Plugins](#plugins)
 * [Structure](#structure)
+* [Example Compose YMLs](#example-compose-ymls)
 
 ## First of all, WTF is *DooD* supposed to mean?
 See [axltxl/docker-jenkins-dood](https://github.com/axltxl/docker-jenkins-dood#first-of-all-wtf-is-dood-supposed-to-mean) for more info.
@@ -49,6 +51,13 @@ A: Try one of these:
   * [confidant](https://github.com/lyft/confidant)
   * [vault](https://github.com/hashicorp/vault)
 
+## Plugins
+Since there is no dependency resolution done by the plugin installer script, we need to figure out every single plugin that needs to be installed. The way I do this is:
+
+0. Manually install all the plugins that I want installed
+0. `grep -r "Short-Name: " /var/jenkins_home/plugins`
+0. Add the plugins from the list that I really want as `pluginx:latest` and their dependencies as: `plugindep` (without `:latest`) to `plugins.txt`.
+
 ## Structure
 I'm using `.shipwright.json` to organize shipping Docker images to the Docker Hub; it maps subdirectories to docker image names. It can also tag images by branch name, but I'm not using that feature -- I'm only pushing a new image once code is merged to `master`.
 
@@ -56,7 +65,7 @@ I'm using `.shipwright.json` to organize shipping Docker images to the Docker Hu
 
 * `smoll/jenkins-dood:master` - uses `FROM smoll/jenkins:master` as its base image. It's expected for the host's Docker executable and daemon socket to be mounted when this container is run.
 
-### Example Docker Compose YMLs
+## Example Compose YMLs
 * `examples/local.yml` - Sample Docker Compose YML suitable for spinning up a local Jenkins box. Because `smoll/jenkins-dood:master` labels the Jenkins master with the "docker" label, it is treated as a generic Docker host, and will spin up sibling containers.
 
 * `examples/org.yml` - Sample Docker Compose YML suitable for spinning up a "Productionized" Jenkins box, for shared use by a Development team. You still need to manually connect a few beefy but generic cloud slaves to it, so that it can run scripts that specify `node('docker') { sh 'echo etc' }`. This master is *NOT* labeled with the "docker" label.

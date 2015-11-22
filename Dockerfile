@@ -7,6 +7,8 @@ FROM jenkins:latest
 MAINTAINER Shujon Mollah <mollah@gmail.com>
 
 #
-# The plugins we want
+# Install plugins
 #
+USER jenkins
 COPY plugins.txt /usr/share/jenkins/plugins.txt
+RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt

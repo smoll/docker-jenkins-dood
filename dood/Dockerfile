@@ -26,12 +26,6 @@ COPY docker.sh /usr/bin/docker
 RUN chmod +x /usr/bin/docker
 
 #
-# Install plugins set by smoll/jenkins
-#
-USER jenkins
-RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
-
-#
 # supervisord
 #
 USER root

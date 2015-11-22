@@ -1,10 +1,11 @@
 # Used for local development of these Dockerfiles
 
-dood:
-  build: dood
-  volumes:
-   - /usr/local/bin/docker:/bin/docker.io
-   - /var/run/docker.sock:/var/run/docker.sock
-   - /var/jenkins_home:/var/jenkins_home
+jenkinsmaster:
+  build: .
+  environment:
+    JAVA_OPTS: "-Djava.awt.headless=true"
   ports:
-   - "8080:8080"
+    - "50000:50000"
+    - "8080:8080"
+  volumes:
+    - /var/jenkins_home

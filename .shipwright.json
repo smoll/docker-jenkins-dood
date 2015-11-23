@@ -4,7 +4,7 @@
 
   "namespace": "smoll",
   "names": {
-    "/": "smoll/jenkins",
+    "/": "smoll/old-jenkins",
     "/dood": "smoll/jenkins-dood"
   }
 }
